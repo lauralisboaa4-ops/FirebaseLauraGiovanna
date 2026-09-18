@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button, Alert } from "react-native";
+import { View, Text, TextInput, Button, Pressable, StyleSheet } from "react-native";
 import { useState } from "react";
 import { entrar } from "../services/auth";
 
@@ -25,14 +25,15 @@ export default function Login({navigation}) {
 
 
     return(
-        <View>
-            <Text>Login</Text>
+        <View style={styles.container}>
+            <Text style={styles.titulo}>Login</Text>
             <TextInput
                 placeholder='E-mail'
                 value={email}
                 onChangeText={setEmail}
-                keyboardType='e-mail-adress'
+                keyboardType='e-mail-address'
                 autoCapitalize='none'
+                style={styles.input}
             />
 
             <TextInput
@@ -40,17 +41,63 @@ export default function Login({navigation}) {
                 value={senha}
                 onChangeText={setSenha}
                 secureTextEntry
+                style={styles.input}
             />
 
             <Button
                 title= 'Login'
                 onPress={realizarLogin}
+                style={styles.botao}
             />
 
-            <Button
-                title='Não tenho conta'
-                onPress={()=>navigation.navigate('Cadastro')}
-            />
+            <View style={styles.login}>
+                <Text>Não possui conta? </Text>
+                  <Pressable onPress={() => navigation.navigate('Cadastro')}>
+                    <Text style={{ color: '#3498db' }}>
+                        Cadastre-se
+                    </Text>
+                  </Pressable>
+            </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        paddingHorizontal: 30,
+        backgroundColor: "#fff",
+    },
+    
+    titulo: {
+        fontSize: 32,
+        fontWeight: "bold",
+        textAlign: "center",
+        marginBottom: 13,
+        color: "#222",
+    },
+
+    input: {
+        height: 52,
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 30,
+        paddingHorizontal: 15,
+        marginBottom: 15,
+        fontSize: 16,
+        backgroundColor: "#fff",
+    },
+
+    botao: {
+        marginTop: 5,
+        marginBottom: 12,
+        borderRadius: 30,
+        overflow: "hidden",
+    },
+
+    login : {
+        flexDirection: "row",
+        marginTop: 10
+      },
+});
